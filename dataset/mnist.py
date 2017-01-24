@@ -47,6 +47,8 @@ def _load_label(file_name):
     print("Converting " + file_name + " to NumPy Array ...")
     with gzip.open(file_path, 'rb') as f:
             labels = np.frombuffer(f.read(), np.uint8, offset=8)
+    
+    print(file_name, labels.shape)  # 정현석 테스트용
     print("Done")
     
     return labels
@@ -57,7 +59,11 @@ def _load_img(file_name):
     print("Converting " + file_name + " to NumPy Array ...")    
     with gzip.open(file_path, 'rb') as f:
             data = np.frombuffer(f.read(), np.uint8, offset=16)
+    
+    print(file_name, data.shape)  # 정현석 테스트용
     data = data.reshape(-1, img_size)
+    
+    print(file_name, data.shape)  # 정현석 테스트용
     print("Done")
     
     return data
