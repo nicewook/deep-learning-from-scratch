@@ -23,7 +23,7 @@ class TwoLayerNet:
         z1 = sigmoid(a1)
         a2 = np.dot(z1, W2) + b2
         y = softmax(a2)
-        
+        #print('y.shape',y.shape )
         return y
         
     # x : 입력 데이터, t : 정답 레이블

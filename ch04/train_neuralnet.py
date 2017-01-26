@@ -14,8 +14,8 @@ network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
 # 하이퍼파라미터
 iters_num = 10000  # 반복 횟수를 적절히 설정한다.
 train_size = x_train.shape[0]
-batch_size = 100   # 미니배치 크기
-learning_rate = 0.1
+batch_size = 100  # 미니배치 크기
+learning_rate = 0.01
 
 train_loss_list = []
 train_acc_list = []
@@ -43,16 +43,17 @@ for i in range(iters_num):
     train_loss_list.append(loss)
     
     # 1에폭당 정확도 계산
-    if i % iter_per_epoch == 0:
-        train_acc = network.accuracy(x_train, t_train)
-        test_acc = network.accuracy(x_test, t_test)
-        train_acc_list.append(train_acc)
-        test_acc_list.append(test_acc)
+    if i % iter_per_epoch == 0:  # 100개의 이미지를 600번 학습시켰을때마다 = 60000개의 이미지 학습할때마다
+        train_acc = network.accuracy(x_train, t_train)  # 현시점 전체 학습데이터 60000개에 대한 정확도
+        test_acc = network.accuracy(x_test, t_test)  # 현시점 전체 테스트데이터 10000개에 대한 정확도
+        train_acc_list.append(train_acc)  # 배치가 600번 돌때마다 = 60000개의 이미지 학습때마다의 정확도 저장
+        test_acc_list.append(test_acc)  # 정확도 저장
         print("train acc, test acc | " + str(train_acc) + ", " + str(test_acc))
 
 # 그래프 그리기
 markers = {'train': 'o', 'test': 's'}
 x = np.arange(len(train_acc_list))
+print('length: ', len(train_acc_list))
 plt.plot(x, train_acc_list, label='train acc')
 plt.plot(x, test_acc_list, label='test acc', linestyle='--')
 plt.xlabel("epochs")
